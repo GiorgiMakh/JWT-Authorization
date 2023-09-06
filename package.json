@@ -1,0 +1,27 @@
+{
+  "name": "JWT-Authorization",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest ./test/request.test.js",
+    "start": "nodemon server.js",
+    "build": "webpack"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^9.0.1",
+    "mongoose": "^7.3.4"
+  },
+  "devDependencies": {
+    "jest": "^29.6.1",
+    "nodemon": "^2.0.19",
+    "supertest": "^6.3.3"
+  },
+  "author": "@GiorgiMakh",
+  "license": "MIT"
+}
