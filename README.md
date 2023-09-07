@@ -20,7 +20,7 @@ Before running the server, make sure you have the following installed on your ma
 2. Install dependencies by running:
 
    ```bash
-   cd backend
+   cd JWT-Authorization
    npm install
    ```
 
