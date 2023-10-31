@@ -1,11 +1,6 @@
 const request = require('supertest');
-const express = require('express');
 const bcrypt = require('bcryptjs');
-const router = require('../routers/routes.js');
-
-const app = express();
-app.use(express.json());
-app.use(router);
+const app = require('../server.js');
 
 const encryptPassword = password => {
     const salt = bcrypt.genSaltSync(10);
@@ -27,4 +22,21 @@ describe('POST /api/register', () => {
       expect(response.statusCode).toBe(201);
       expect(response.body.message).toBe('Account has been created');
     });
+    test('should log into account', async () => {
+      const data = {
+        username: 'testusername',
+        password: "testpassword",
+      };
+      const response = await request(app)
+      .post('/api/login')
+      .send(data);
+
+      expect(response.statusCode).toBe(201);
+    })
+    test('should allow access to protected route', async () => {
+      const response = await request(app)
+      .get('/api/protected')
+
+      expect(response.statusCode).toBe(201);
+    })
   });

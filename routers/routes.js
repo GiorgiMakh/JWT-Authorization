@@ -11,7 +11,7 @@ const secretKey = process.env.SECRET_KEY;
   
 // Middleware to authenticate and authorize routes
 const authenticate = (req, res, next) => {
-    const token = req.headers.authorization;
+    const token = req.get('auth');
   
     if (!token) {
       return res.status(401).json({ message: 'No token provided' });
@@ -45,7 +45,7 @@ router.post('/login', async(req, res) => {
     if (isMatch) {
       // Create and sign JWT token
       const token = jwt.sign({ id: user.id, username: user.username, role: user.role }, secretKey);
-      res.json({ token });
+      res.set('auth', token).status(201).json({ token });
     } else {
       res.status(401).json({ message: 'Invalid credentials' });
       console.log("Else");
@@ -79,7 +79,7 @@ router.post('/register', async(req, res) => {
   
   // Protected route example
 router.get('/protected', authenticate, (req, res) => {
-    res.json({ message: 'Protected route accessed', user: req.user });
+    res.status(201).json({ message: 'Protected route accessed', user: req.user });
 });
 
 module.exports = router;
