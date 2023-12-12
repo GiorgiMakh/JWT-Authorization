@@ -31,6 +31,11 @@ const authenticate = (req, res, next) => {
 router.post('/login', async(req, res) => {
     // Get username and password from request body
     const { username, password } = req.body;
+
+    // Check if name and password exist
+    if (!username || !password) {
+      return res.status(400).send('Username and password are required');
+    }
   
     // Find the user by username
     const users = await User.find({ username: username });
@@ -57,6 +62,11 @@ router.post('/register', async(req, res) => {
   try {
     // Get username and encrypted password from request body
     const { username, password } = req.body;
+
+    // Check if name and password exist
+    if (!username || !password) {
+      return res.status(400).send('Name and password are required');
+    }
 
     // Check if user already exists
     const users = await User.find({ username: username });
