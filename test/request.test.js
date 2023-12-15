@@ -8,7 +8,15 @@ const encryptPassword = password => {
     return encryptedPassword
 };
 
-describe('POST /api/register', () => {
+let authToken;
+
+describe('Testing API', () => {
+  jest.setTimeout(10000);
+
+  afterAll((done) => {
+    app.close(done);
+  });
+
     test('should create new account', async () => {
       const data = {
         username: 'testusername',
@@ -32,10 +40,16 @@ describe('POST /api/register', () => {
       .send(data);
 
       expect(response.statusCode).toBe(201);
+      expect(response.headers['auth']).toBeDefined();
+
+      authToken = response.headers['auth'];
     })
     test('should allow access to protected route', async () => {
+      expect(authToken).toBeDefined();
+
       const response = await request(app)
       .get('/api/protected')
+      .set('auth', authToken)
 
       expect(response.statusCode).toBe(201);
     })
