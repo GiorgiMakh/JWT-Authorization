@@ -1,7 +1,16 @@
 {
   "name": "JWT-Authorization",
   "version": "1.0.0",
-  "description": "",
+  "description": "JSON Web Token (JWT) authorization in Express.JS",
+  "keywords":[
+    "node",
+    "express",
+    "JWT",
+    "jest",
+    "mongoose",
+    "REST",
+    "microservices"
+  ],
   "main": "server.js",
   "scripts": {
     "test": "jest",
