@@ -3,7 +3,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-// Load User model
+// Load Mongoose User model
 const User = require('../models/User');
   
 // Secret key for JWT signing
@@ -12,11 +12,13 @@ const secretKey = process.env.SECRET_KEY;
 // Middleware to authenticate and authorize routes
 const authenticate = (req, res, next) => {
     const token = req.get('auth');
-  
+
+    // Check if token defined
     if (!token) {
       return res.status(401).json({ message: 'No token provided' });
     }
-  
+
+    // Identify token
     jwt.verify(token, secretKey, (err, decoded) => {
       if (err) {
         return res.status(401).json({ message: 'Invalid token' });
@@ -32,7 +34,7 @@ router.post('/login', async(req, res) => {
     // Get username and password from request body
     const { username, password } = req.body;
 
-    // Check if name and password exist
+    // Check if username and password exist
     if (!username || !password) {
       return res.status(400).send('Username and password are required');
     }
@@ -63,7 +65,7 @@ router.post('/register', async(req, res) => {
     // Get username and encrypted password from request body
     const { username, password } = req.body;
 
-    // Check if name and password exist
+    // Check if username and password exist
     if (!username || !password) {
       return res.status(400).send('Name and password are required');
     }
@@ -87,7 +89,7 @@ router.post('/register', async(req, res) => {
   }
 });
   
-  // Protected route example
+// Protected route example
 router.get('/protected', authenticate, (req, res) => {
     res.status(201).json({ message: 'Protected route accessed', user: req.user });
 });
