@@ -55,7 +55,6 @@ router.post('/login', async(req, res) => {
       res.set('auth', token).status(201).json({ token });
     } else {
       res.status(401).json({ message: 'Invalid credentials' });
-      console.log("Else");
     }
 });
 
@@ -84,7 +83,7 @@ router.post('/register', async(req, res) => {
 
     res.status(201).json({ message: 'Account has been created' });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({ message: 'Server error' });
   }
 });
