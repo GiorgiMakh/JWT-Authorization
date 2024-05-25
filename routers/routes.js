@@ -14,7 +14,7 @@ const authenticate = (req, res, next) => {
     const token = req.get('auth');
 
     // Check if token defined
-    if (!token) {
+    if (token) {
       return res.status(401).json({ message: 'No token provided' });
     }
 
@@ -35,7 +35,7 @@ router.post('/login', async(req, res) => {
     const { username, password } = req.body;
 
     // Check if username and password exist
-    if (!username && !password) {
+    if (!username || !password) {
       return res.status(400).send('Username and password are required');
     }
   
@@ -65,7 +65,7 @@ router.post('/register', async(req, res) => {
     const { username, password } = req.body;
 
     // Check if username and password exist
-    if (!username && !password) {
+    if (!username || !password) {
       return res.status(400).send('Name and password are required');
     }
 
