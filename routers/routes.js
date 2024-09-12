@@ -14,7 +14,7 @@ const authenticate = (req, res, next) => {
     const token = req.get('auth');
 
     // Check if token defined
-    if (token) {
+    if (!token) {
       return res.status(401).json({ message: 'No token provided' });
     }
 
